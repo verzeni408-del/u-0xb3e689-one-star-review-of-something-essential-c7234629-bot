@@ -1,7 +1,12 @@
-"""One-star review of something essential: gravity, rated honestly."""
-from pathlib import Path
+"""One-star review of something essential: sleep, rated honestly."""
+import os
 
-one_star_review = "Gravity works fine all day, then drops my phone screen-first the one time it matters."
+TEXT = "Sleep takes a third of my life and still charges me a stiff neck every morning."
 
-Path("/output/entry.txt").parent.mkdir(parents=True, exist_ok=True)
-Path("/output/entry.txt").write_text(one_star_review + "\n", encoding="utf-8")
+def main():
+    os.makedirs("/output", exist_ok=True)
+    with open("/output/entry.txt", "w", encoding="utf-8") as f:
+        f.write(TEXT + "\n")
+
+if __name__ == "__main__":
+    main()
