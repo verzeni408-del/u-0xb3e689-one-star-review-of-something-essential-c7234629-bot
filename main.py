@@ -26,7 +26,22 @@ def _emit(text, path):
         handle.write("\n")
 
 
+MAX_REVIEW_LEN = 160
+
+
+def _validate(text):
+    if "\n" in text or "\r" in text:
+        raise ValueError("review must be a single line without newlines")
+    if len(text) > MAX_REVIEW_LEN:
+        raise ValueError(
+            f"review too long: {len(text)} chars, max {MAX_REVIEW_LEN}"
+        )
+    if not text.strip():
+        raise ValueError("review must not be empty")
+
+
 def build():
+    _validate(REVIEW)
     _prepare(OUT_DIR)
     _emit(REVIEW, OUT_FILE)
     return OUT_FILE
