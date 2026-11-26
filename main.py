@@ -1,21 +1,36 @@
-"""One-star review entry writer (v3, fresh angle).
+"""One-star review generator, fourth draft.
 
-Angle: toilet paper. Deadpan complaint about something everyone uses and
-nobody wants to think about — the universal betrayal lands in the final
-turn, one square short, right when the job is done.
+Assembles one deadpan complaint about a daily essential and drops it
+into the submission file the harness reads.
 """
 
 import os
 
-# Single-line entry, max 160 chars, deadpan throughout — no jokes, just the facts.
-ENTRY = "Toilet paper always runs out one square before the job is done."
+OUT_DIR = "/output"
+OUT_FILE = os.path.join(OUT_DIR, "entry.txt")
+
+REVIEW = (
+    "My toothbrush reaches every tooth "
+    "except the one the dentist always asks about."
+)
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(ENTRY + "\n")
+def _prepare(folder):
+    if not os.path.isdir(folder):
+        os.makedirs(folder, exist_ok=True)
+
+
+def _emit(text, path):
+    with open(path, "w", encoding="utf-8") as handle:
+        handle.write(text)
+        handle.write("\n")
+
+
+def build():
+    _prepare(OUT_DIR)
+    _emit(REVIEW, OUT_FILE)
+    return OUT_FILE
 
 
 if __name__ == "__main__":
-    main()
+    build()
